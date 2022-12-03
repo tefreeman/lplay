@@ -100,6 +100,11 @@ class Actions:
         wait_time = 1/fps
 
         while True:
+            for c in self.gs.champs:
+                c.debug_print()
+
+            self.gs.player.debug_print()
+
             if self.kms == True:
                 await self.killmys()
                 self.kms = False

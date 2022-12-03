@@ -37,7 +37,7 @@ class Champ:
         start_x = Champ.c0[0] + Champ.offset[0] * num
         end_x = start_x + Champ.c0[2]-Champ.c0[0]
         self.hp_bar = (start_x, Champ.c0[1], end_x, Champ.c0[3])
-
+        self.num = num
         self.hp_percent = 0.0
         self.mana_percent = 0.0
         self.is_dead = False
@@ -72,6 +72,9 @@ class Champ:
                 break
 
         self.hp_percent = (x - self.hp_bar[0]) / length
+
+    def debug_print(self):
+        print(self.num, self.hp_percent, self.mana_percent, self.is_dead)
 
 
 class Player:
@@ -110,6 +113,9 @@ class Player:
         self.is_dead = False
         self.can_learn = False
         self.attached = False
+
+    def debug_print(self):
+        print(self.hp, self.mana, self.is_dead, self.attached)
 
     def update(self, arr: np.array):
         self.update_is_dead(arr)

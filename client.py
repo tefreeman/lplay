@@ -13,7 +13,7 @@ class EchoClientProtocol:
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        print("Received:", data.decode())
+        pass
 
     def error_received(self, exc):
         print('Error received:', exc)

@@ -22,13 +22,16 @@ class EchoServerProtocol:
 
         elif key == "kms":
             self.act.toggle_kms()
+            print('Received %r from %s' % (key, addr))
         elif key == "enable":
             self.act.toggle_enabled()
+            print('Received %r from %s' % (key, addr))
         elif key == "1" or key == "2" or key == "3" or key == "4":
             self.act.set_target(key)
+            print('Received %r from %s' % (key, addr))
         else:
             keyboard.press_and_release(key)
-        print('Received %r from %s' % (key, addr))
+            print('Received %r from %s' % (key, addr))
 
 
 async def start_server(act: Actions):

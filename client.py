@@ -36,7 +36,7 @@ async def start_client():
 
     transport, protocol = await loop.create_datagram_endpoint(
         lambda: EchoClientProtocol(on_con_lost),
-        remote_addr=('127.0.0.1', 9999))
+        remote_addr=('192.168.1.3', 9999))
 
     for key, val in keyboard_keys.items():
         keyboard.add_hotkey(key, send_func, args=(transport, val))

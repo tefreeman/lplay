@@ -42,7 +42,7 @@ async def start_server(act: Actions):
     # client requests.
     transport, protocol = await loop.create_datagram_endpoint(
         lambda: EchoServerProtocol(act),
-        local_addr=('127.0.0.1', 9999))
+        local_addr=('192.168.1.3', 9999))
 
     try:
         await asyncio.sleep(3600)  # Serve for 1 hour.

@@ -1,7 +1,6 @@
 import asyncio
 from ainput import AInput
 from screen_capture import ScreenCapture
-import cv2
 import random
 import time
 import psutil
@@ -37,7 +36,7 @@ async def main():
         if player.is_dead is True:
             asyncio.sleep(1.0)
             continue
-        
+
         champs[i].update_is_dead(sc.get_screen())
 
         if i == 10:

@@ -2,7 +2,6 @@ import asyncio
 from ainput import AInput
 from screen_capture import ScreenCapture
 from game_state import GameState
-import cv2
 import random
 import time
 import psutil

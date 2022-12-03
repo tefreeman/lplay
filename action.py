@@ -64,7 +64,7 @@ class Actions:
         if time.time() - self.prev["auto_heal"] < min_wait_time:
             return
         print("auto heal")
-        if self.gs.player.attached == 1 and\
+        if (self.gs.player.attached == 1 or self.gs.player.attached == 2) and\
                 self.gs.player.is_dead == False and\
                 self.gs.champs[self.target-1].is_dead == False and\
                 self.gs.champs[self.target-1].hp_percent < 0.92:

@@ -14,7 +14,7 @@ class EchoServerProtocol:
     def datagram_received(self, data, addr):
         key = data.decode()
         if "," in key:
-            if self.act.enabled == False:
+            if self.act.block_mouse == False:
                 ls = key.split(",")
                 x = int(ls[0])
                 y = int(ls[1])

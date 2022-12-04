@@ -9,6 +9,7 @@ from ainput import AInput
 class Actions:
     def __init__(self, gs: GameState, hd: AInput, spell_list: List[str]) -> None:
         self.enabled = True
+        self.block_mouse = False
         self.kms = False
         self.screen_center = (955, 500)
         self.gs: GameState = gs
@@ -42,6 +43,7 @@ class Actions:
             self.level += 1
 
     async def goto_attach(self):
+        self.block_mouse = True
         print("goto_attach")
         await self.hd.press_key("f" + str(self.target))
         await self.hd.move_mouse(self.screen_center)
@@ -49,6 +51,7 @@ class Actions:
         await self.hd.press_and_release_key("w")
 
         await asyncio.sleep(0.1)
+        self.block_mouse = False
 
     async def auto_heal(self, min_wait_time):
         if time.time() - self.prev["auto_heal"] < min_wait_time:
@@ -64,11 +67,15 @@ class Actions:
             await self.hd.press_and_release_key("e")
 
     async def retreat(self):
+        self.block_mouse = True
         await self.hd.press_and_release_key("e")
         await self.hd.move_mouse(self.gs.ally_base_loc)
         await self.hd.mouse_click()
+        await asyncio.sleep(0.1)
+        self.block_mouse = False
 
     async def killmys(self):
+        self.block_mouse = True
         print("killmys")
 
         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
@@ -84,6 +91,8 @@ class Actions:
         await self.hd.mouse_click(button="right")
         await asyncio.sleep(0.75)
         await self.hd.press_and_release_key("q")
+
+        self.block_mouse = False
 
     async def play_loop(self, fps):
         wait_time = 1/fps

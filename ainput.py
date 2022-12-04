@@ -37,6 +37,12 @@ class AInput:
         else:
             self.loop.call_soon(mo.click, button)
 
+    async def double_click(self, button='left', delay=None):
+        if delay:
+            self.loop.call_later(delay, mo.double_click, button)
+        else:
+            self.loop.call_soon(mo.double_click, button)
+
     async def move_mouse(self, target):
         m_pos = mo.get_position()
         await wind_mouse(m_pos[0], m_pos[1], target[0], target[1],

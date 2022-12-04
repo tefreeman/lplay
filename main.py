@@ -16,8 +16,7 @@ async def main():
     hd = AInput(loop)
     sc = ScreenCapture()
     gs = GameState(sc)
-    act = Actions(gs, hd, ["e", "q", "e", "w", "e", "r", "e",
-                           "w", "e", "w", "r", "w", "q", "q", "q", "r", "q", "q"])
+    act = Actions(gs, hd, ["r", "e", "w", "q"])
 
     await asyncio.sleep(3)
 
@@ -26,7 +25,6 @@ async def main():
     screen_task_loop = asyncio.create_task(sc.update_loop(5))
 
     await gs.wait_game_start()
-    hd.press_and_release_key("y")
 
     gs_task_loop = asyncio.create_task(gs.update_loop())
     action_loop = asyncio.create_task(act.play_loop(10))

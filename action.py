@@ -14,7 +14,6 @@ class Actions:
         self.screen_center = (955, 500)
         self.gs: GameState = gs
         self.spell_list: List[str] = spell_list
-        self.level = 0
         self.target = 4
         self.hd: AInput = hd
         self.prev = {
@@ -40,18 +39,20 @@ class Actions:
             return
         if self.gs.player.can_learn:
             self.prev["learn_spell"] = time.time()
-            await self.hd.press_and_release_key("ctrl+" + self.spell_list[self.level])
-            self.level += 1
+
+            for spell in self.spell_list:
+                await self.hd.press_and_release_key("ctrl+" + spell)
+                await asyncio.sleep(0.10)
 
     async def goto_attach(self):
         self.block_mouse = True
         print("goto_attach")
         await self.hd.press_key("f" + str(self.target))
         await self.hd.move_mouse(self.screen_center)
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.15)
         await self.hd.press_and_release_key("w")
 
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.35)
         await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
 
@@ -72,8 +73,22 @@ class Actions:
         self.block_mouse = True
         await self.hd.press_and_release_key("e")
         await self.hd.move_mouse(self.gs.ally_base_loc)
-        await self.hd.mouse_click()
+        await self.hd.mouse_click(button="right")
         await asyncio.sleep(0.1)
+        self.block_mouse = False
+
+    async def quick_attack(self):
+        await self.hd.press_and_release_key("w")
+        await asyncio.sleep(0.2)
+        self.block_mouse = True
+        await self.hd.mouse_click()
+        await asyncio.sleep(0.15)
+        await self.hd.press_key("f" + str(self.target))
+        await self.hd.move_mouse(self.screen_center)
+        await asyncio.sleep(0.15)
+        await self.hd.press_and_release_key("w")
+        await asyncio.sleep(0.15)
+        await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
 
     async def killmys(self):
@@ -96,8 +111,29 @@ class Actions:
 
         self.block_mouse = False
 
+    async def buyItems(self):
+        await self.hd.press_and_release_key("p")
+        await asyncio.sleep(0.2)
+        await self.hd.move_mouse((800, 220))
+        await self.hd.mouse_click()
+        await asyncio.sleep(0.1)
+
+        items = [(390, 400), (440, 400), (385, 510), (440, 510),
+                 (490, 510), (390, 620), (440, 620)]
+
+        for item in items:
+            await self.hd.move_mouse(item)
+            await asyncio.sleep(0.05)
+            await self.hd.double_click()
+            await asyncio.sleep(0.05)
+
+        await asyncio.sleep(0.1)
+        await self.hd.press_and_release_key("p")
+
     async def play_loop(self, fps):
         wait_time = 1/fps
+
+        await self.buyItems()
 
         while True:
             if self.kms == True:
@@ -116,6 +152,9 @@ class Actions:
                     else:
                         await self.retreat()
                         asyncio.sleep(1.0)
+                else:
+                    await self.buyItems()
+                    asyncio.sleep(3.0)
             else:
                 print("not enabled")
 

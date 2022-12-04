@@ -114,6 +114,7 @@ class Actions:
 
                     else:
                         await self.retreat()
+                        asyncio.sleep(1.0)
             else:
                 print("not enabled")
 

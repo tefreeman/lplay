@@ -68,6 +68,8 @@ class Champ:
                     self.hp_percent = 0.0
                     break
 
+        self.is_dead = False
+
     def update_hp(self, np_array):
         length = self.hp_bar[2] - self.hp_bar[0]
         x = None

@@ -84,8 +84,8 @@ class GameState:
         return True
 
     def set_base_loc(self):
-        south_pt = (125, 950)
-        north_pt = (150, 930)
+        south_pt = (50, 995)
+        north_pt = (193, 857)
 
         if (is_brighter(self.screen_cap.screen_array, south_pt, north_pt)):
             self.ally_base_loc = GameState.south_fountain

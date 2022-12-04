@@ -29,6 +29,10 @@ class EchoServerProtocol:
         elif key == "1" or key == "2" or key == "3" or key == "4":
             self.act.set_target(key)
             print('Received %r from %s' % (key, addr))
+        elif key == "<":
+            mouse.click()
+        elif key == ">":
+            mouse.click(button="right")
         else:
             keyboard.press_and_release(key)
             print('Received %r from %s' % (key, addr))

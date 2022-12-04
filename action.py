@@ -50,15 +50,16 @@ class Actions:
         await self.hd.press_and_release_key("w")
 
         inital_target = self.target
+
         while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == False and self.enabled == True:
             if self.gs.player.attached == 1:
                 return True
-            if time.time() - start_time > 8:
+            if time.time() - start_time > 4:
                 return False
             if inital_target != self.target:
                 return False
 
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.1)
 
     async def auto_heal(self, min_wait_time):
         if time.time() - self.prev["auto_heal"] < min_wait_time:
@@ -75,7 +76,7 @@ class Actions:
     async def retreat(self):
         print("retreat")
         start_time = time.time()
-        while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == True and self.enabled == True:
+        while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == True:
 
             await self.hd.press_and_release_key("e")
             await self.hd.move_mouse(self.gs.ally_base_loc)
@@ -87,7 +88,7 @@ class Actions:
 
     async def killmys(self):
         print("killmys")
-        if self.gs.player.attached == 1:
+        if self.gs.player.attached == 1 or self.gs.player.attached == 2:
             await self.hd.press_and_release_key("w")
 
         start_time = time.time()
@@ -116,7 +117,6 @@ class Actions:
                         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
                             await self.auto_heal(2)
                         else:
-                            await asyncio.sleep(2.5)
                             await self.goto_attach()
 
                     else:

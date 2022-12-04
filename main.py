@@ -20,11 +20,13 @@ async def main():
                            "w", "e", "w", "r", "w", "q", "q", "q", "r", "q", "q"])
 
     await asyncio.sleep(3)
+
     sc.update_screen()
     keys_server = asyncio.create_task(start_server(act))
     screen_task_loop = asyncio.create_task(sc.update_loop(5))
 
     await gs.wait_game_start()
+    hd.press_and_release_key("y")
 
     gs_task_loop = asyncio.create_task(gs.update_loop())
     action_loop = asyncio.create_task(act.play_loop(10))

@@ -8,7 +8,10 @@ keyboard_keys = {
     "a": "q",
     "shift+w": "w",
     "`": "enable",
-    "f7": "kms"
+    "f7": "kms",
+    "shift+d": "d",
+    "shift+f": "f"
+
 }
 
 mouse_keys = {

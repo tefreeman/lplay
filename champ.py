@@ -144,6 +144,7 @@ class Player:
             if count > 1:
                 self.is_dead = True
                 break
+        self.is_dead = False
 
     def update_hp(self, np_array):
         length = self.hp_bar_line[2] - self.hp_bar_line[0]

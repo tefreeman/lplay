@@ -26,8 +26,8 @@ class EchoServerProtocol:
         elif key == "enable":
             self.act.toggle_enabled()
             print('Received %r from %s' % (key, addr))
-        elif key == "1" or key == "2" or key == "3" or key == "4":
-            self.act.set_target(key)
+        elif key == "f1" or key == "f2" or key == "f3" or key == "f4":
+            self.act.set_target(key[1:])
             print('Received %r from %s' % (key, addr))
         elif key == "<":
             mouse.click()

@@ -4,6 +4,11 @@ import numpy as np
 import colorsys
 
 
+def color_diff(c0, c1):
+    val = (c0[0] - c1[0]) + (c0[1] - c1[1]) + (c0[2] - c1[2])
+    return val*val
+
+
 class Champ:
     c0 = (210, 779, 254, 784)
     offset = (-65, 779)
@@ -175,10 +180,10 @@ class Player:
         attached_color = (56, 79, 127)
         unattached_color = (65, 35, 151)
 
-        if all(np_array[icon_spell_pt[1], icon_spell_pt[0]] == unattached_color):
+        if color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], unattached_color) < 16:
             self.attached = 0
 
-        elif all(np_array[icon_spell_pt[1], icon_spell_pt[0]] == attached_color):
+        elif color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], attached_color) < 16:
             self.attached = 1
 
         else:

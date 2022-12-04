@@ -53,7 +53,7 @@ class Actions:
         while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == False and self.enabled == True:
             if self.gs.player.attached == 1:
                 return True
-            if time.time() - start_time > 30:
+            if time.time() - start_time > 8:
                 return False
             if inital_target != self.target:
                 return False
@@ -109,9 +109,10 @@ class Actions:
                 if self.gs.player.is_dead == False:
                     if self.gs.champs[self.target-1].is_dead == False:
                         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
-                            await self.auto_heal(4)
+                            await self.auto_heal(2)
                             await self.try_learn_spell(45)
                         else:
+                            await asyncio.sleep(2.5)
                             await self.goto_attach()
 
                     else:

@@ -8,6 +8,7 @@ keyboard_keys = {
     "alt+e": "ctrl+e",
     "alt+r": "ctrl+r",
     "shift+a": "atk",
+    "a": "atk",
     "shift+q": "q",
     "shift+w": "w",
     "shift+e": "e",

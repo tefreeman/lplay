@@ -125,10 +125,10 @@ class Actions:
 
     async def buyItems(self):
         await self.hd.press_and_release_key("p")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(0.25)
         await self.hd.move_mouse((800, 220))
         await self.hd.mouse_click()
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.25)
 
         items = [(390, 400), (440, 400), (385, 510), (440, 510),
                  (490, 510), (390, 620), (440, 620)]

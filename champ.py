@@ -58,6 +58,8 @@ class Champ:
     def update_is_dead(self, np_array):
         length = self.hp_bar[2] - self.hp_bar[0]
         count = 0
+
+        self.is_dead = False
         for x in range(self.hp_bar[0], self.hp_bar[2]):
             r, g, b = np_array[self.hp_bar[1], x]
             if Champ.is_dead_bounds(colorsys.rgb_to_hls(r/255, g/255, b/255)) is True:
@@ -67,8 +69,6 @@ class Champ:
                     self.is_dead = True
                     self.hp_percent = 0.0
                     break
-
-        self.is_dead = False
 
     def update_hp(self, np_array):
         length = self.hp_bar[2] - self.hp_bar[0]

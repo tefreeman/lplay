@@ -4,12 +4,14 @@ import time
 import keyboard
 import asyncio
 from ainput import AInput
+import mouse
 
 
 class Actions:
     def __init__(self, gs: GameState, hd: AInput, spell_list: List[str]) -> None:
         self.enabled = True
         self.block_mouse = False
+        self.do_quick_attack = False
         self.kms = False
         self.screen_center = (955, 500)
         self.gs: GameState = gs
@@ -20,6 +22,9 @@ class Actions:
             "learn_spell": 0,
             "auto_heal": 0
         }
+
+    def toggle_quick_attack(self):
+        self.do_quick_attack = True
 
     def set_target(self, tar: str):
         keyboard.release("f" + str(self.target))
@@ -33,6 +38,13 @@ class Actions:
         self.enabled = not self.enabled
         self.kms = False
         print("done")
+
+    def cast_self(self, key):
+        self.block_mouse = True
+        mouse.move(self.screen_center[0], self.screen_center[1])
+        time.sleep(0.05)
+        keyboard.press_and_release(key)
+        self.block_mouse = False
 
     async def try_learn_spell(self, min_wait_time):
         if time.time() - self.prev["learn_spell"] < min_wait_time:
@@ -107,8 +119,8 @@ class Actions:
         await asyncio.sleep(0.05)
         await self.hd.mouse_click(button="right")
         await asyncio.sleep(0.75)
+        await self.hd.press_and_release_key("r")
         await self.hd.press_and_release_key("q")
-
         self.block_mouse = False
 
     async def buyItems(self):
@@ -123,9 +135,9 @@ class Actions:
 
         for item in items:
             await self.hd.move_mouse(item)
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.1)
             await self.hd.double_click()
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.1)
 
         await asyncio.sleep(0.1)
         await self.hd.press_and_release_key("p")
@@ -134,12 +146,15 @@ class Actions:
         wait_time = 1/fps
 
         await self.buyItems()
-
+        await asyncio.sleep(10)
         while True:
             if self.kms == True:
                 await self.killmys()
                 if self.gs.player.is_dead == True:
                     self.kms = False
+            if self.do_quick_attack == True:
+                await self.quick_attack()
+                self.do_quick_attack = False
             elif self.enabled == True:
                 if self.gs.player.is_dead == False:
                     if self.gs.champs[self.target-1].is_dead == False:

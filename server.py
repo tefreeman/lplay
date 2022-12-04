@@ -19,10 +19,13 @@ class EchoServerProtocol:
                 x = int(ls[0])
                 y = int(ls[1])
                 mouse.move(x, y)
-
+        elif key == "1" or key == "2" or key == "3":
+            self.act.cast_self(key)
         elif key == "kms":
             self.act.toggle_kms()
             print('Received %r from %s' % (key, addr))
+        elif key == "atk":
+            self.act.toggle_quick_attack()
         elif key == "enable":
             self.act.toggle_enabled()
             print('Received %r from %s' % (key, addr))

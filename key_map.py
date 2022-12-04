@@ -7,6 +7,7 @@ keyboard_keys = {
     "alt+w": "ctrl+w",
     "alt+e": "ctrl+e",
     "alt+r": "ctrl+r",
+    "shift+a": "atk",
     "shift+q": "q",
     "shift+w": "w",
     "shift+e": "e",
@@ -19,7 +20,8 @@ keyboard_keys = {
     "shift+f": "f",
     "shift+1": "1",
     "shift+2": "2",
-    "shift+3": "3"
+    "shift+3": "3",
+    "shift+3": "4"
 
 }
 

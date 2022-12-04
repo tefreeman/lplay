@@ -52,6 +52,7 @@ class Actions:
         await self.hd.press_and_release_key("w")
 
         await asyncio.sleep(0.1)
+        await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
 
     async def auto_heal(self, min_wait_time):

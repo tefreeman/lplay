@@ -32,7 +32,7 @@ class Actions:
         keyboard.press_and_release("w")
 
     def toggle_kms(self):
-        self.kms = True
+        self.kms = not self.kms
 
     def toggle_enabled(self):
         self.enabled = not self.enabled
@@ -150,8 +150,6 @@ class Actions:
         while True:
             if self.kms == True:
                 await self.killmys()
-                if self.gs.player.is_dead == True:
-                    self.kms = False
             if self.do_quick_attack == True:
                 await self.quick_attack()
                 self.do_quick_attack = False

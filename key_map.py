@@ -19,14 +19,8 @@ keyboard_keys = {
     "f7": "kms",
     "shift+d": "d",
     "shift+f": "f",
-    "shift+1": "1",
-    "shift+2": "2",
-    "shift+3": "3",
-    "ctrl+4": "4",
-    "ctrl+1": "1",
-    "ctrl+2": "2",
-    "ctrl+3": "3",
-    "ctrl+4": "4"
+    "1": "1",
+    "2": "2",
 
 }
 

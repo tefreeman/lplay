@@ -32,7 +32,7 @@ class Actions:
         keyboard.press_and_release("w")
 
     def toggle_kms(self):
-        self.kms = not self.kms
+        self.kms = True
 
     def toggle_enabled(self):
         self.enabled = not self.enabled

@@ -21,7 +21,7 @@ keyboard_keys = {
     "shift+1": "1",
     "shift+2": "2",
     "shift+3": "3",
-    "shift+3": "4"
+    "shift+4": "4"
 
 }
 

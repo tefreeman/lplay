@@ -43,66 +43,47 @@ class Actions:
 
     async def goto_attach(self):
         print("goto_attach")
-        start_time = time.time()
         await self.hd.press_key("f" + str(self.target))
         await self.hd.move_mouse(self.screen_center)
         await asyncio.sleep(0.1)
         await self.hd.press_and_release_key("w")
 
-        inital_target = self.target
-
-        while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == False and self.enabled == True:
-            if self.gs.player.attached == 1:
-                return True
-            if time.time() - start_time > 4:
-                return False
-            if inital_target != self.target:
-                return False
-
-            await asyncio.sleep(0.1)
+        await asyncio.sleep(0.1)
 
     async def auto_heal(self, min_wait_time):
         if time.time() - self.prev["auto_heal"] < min_wait_time:
             return
-        print("auto heal")
         if (self.gs.player.attached == 1 or self.gs.player.attached == 2) and\
                 self.gs.player.is_dead == False and\
                 self.gs.champs[self.target-1].is_dead == False and\
                 self.gs.champs[self.target-1].hp_percent < 0.92:
             self.prev["auto_heal"] = time.time()
-
+            await self.hd.press_and_release_key("e")
+        elif self.gs.player.hp < 0.5 and self.gs.player.is_dead == False:
+            self.prev["auto_heal"] = time.time()
             await self.hd.press_and_release_key("e")
 
     async def retreat(self):
-        print("retreat")
-        start_time = time.time()
-        while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == True:
-
-            await self.hd.press_and_release_key("e")
-            await self.hd.move_mouse(self.gs.ally_base_loc)
-            await self.hd.mouse_click()
-            await asyncio.sleep(0.5)
-
-            if time.time() - start_time > 10:
-                break
+        await self.hd.press_and_release_key("e")
+        await self.hd.move_mouse(self.gs.ally_base_loc)
+        await self.hd.mouse_click()
 
     async def killmys(self):
         print("killmys")
+
         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
             await self.hd.press_and_release_key("w")
 
-        start_time = time.time()
-        while self.gs.player.is_dead == False:
-            if time.time() - start_time > 30:
-                break
-            await self.hd.move_mouse(self.screen_center)
-            await asyncio.sleep(0.05)
-            await self.hd.mouse_click()
-            await asyncio.sleep(0.75)
-            await self.hd.move_mouse(self.gs.enemy_base_loc)
-            await asyncio.sleep(0.05)
-            await self.hd.mouse_click(button="right")
-            await asyncio.sleep(0.75)
+        await self.hd.move_mouse(self.screen_center)
+        await asyncio.sleep(0.05)
+        await self.hd.mouse_click()
+        await asyncio.sleep(0.75)
+        await self.hd.press_and_release_key("e")
+        await self.hd.move_mouse(self.gs.enemy_base_loc)
+        await asyncio.sleep(0.05)
+        await self.hd.mouse_click(button="right")
+        await asyncio.sleep(0.75)
+        await self.hd.press_and_release_key("q")
 
     async def play_loop(self, fps):
         wait_time = 1/fps
@@ -110,14 +91,16 @@ class Actions:
         while True:
             if self.kms == True:
                 await self.killmys()
-                self.kms = False
-            if self.enabled == True:
+                if self.gs.player.is_dead == True:
+                    self.kms = False
+            elif self.enabled == True:
                 if self.gs.player.is_dead == False:
                     if self.gs.champs[self.target-1].is_dead == False:
                         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
                             await self.auto_heal(2)
                         else:
                             await self.goto_attach()
+                            asyncio.sleep(2.0)
 
                     else:
                         await self.retreat()

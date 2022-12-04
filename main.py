@@ -21,14 +21,13 @@ async def main():
 
     await asyncio.sleep(3)
     sc.update_screen()
-
+    keys_server = asyncio.create_task(start_server(act))
     screen_task_loop = asyncio.create_task(sc.update_loop(5))
 
     await gs.wait_game_start()
 
     gs_task_loop = asyncio.create_task(gs.update_loop())
     action_loop = asyncio.create_task(act.play_loop(10))
-    keys_server = asyncio.create_task(start_server(act))
 
     await screen_task_loop
     await gs_task_loop

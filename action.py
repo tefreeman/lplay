@@ -74,11 +74,16 @@ class Actions:
 
     async def retreat(self):
         print("retreat")
+        start_time = time.time()
         while self.gs.player.is_dead == False and self.gs.champs[self.target-1].is_dead == True and self.enabled == True:
+
             await self.hd.press_and_release_key("e")
             await self.hd.move_mouse(self.gs.ally_base_loc)
             await self.hd.mouse_click()
             await asyncio.sleep(0.5)
+
+            if time.time() - start_time > 10:
+                break
 
     async def killmys(self):
         print("killmys")
@@ -110,7 +115,6 @@ class Actions:
                     if self.gs.champs[self.target-1].is_dead == False:
                         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
                             await self.auto_heal(2)
-                            await self.try_learn_spell(45)
                         else:
                             await asyncio.sleep(2.5)
                             await self.goto_attach()
@@ -120,4 +124,5 @@ class Actions:
             else:
                 print("not enabled")
 
+            await self.try_learn_spell(30)
             await asyncio.sleep(wait_time)

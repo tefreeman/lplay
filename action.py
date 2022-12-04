@@ -145,7 +145,7 @@ class Actions:
     async def play_loop(self, fps):
         wait_time = 1/fps
 
-        await self.buyItems()
+        # await self.buyItems()
         await asyncio.sleep(10)
         while True:
             if self.kms == True:
@@ -168,7 +168,7 @@ class Actions:
                         await self.retreat()
                         asyncio.sleep(1.0)
                 else:
-                    await self.buyItems()
+                    # await self.buyItems()
                     asyncio.sleep(3.0)
             else:
                 print("not enabled")

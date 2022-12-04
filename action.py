@@ -32,6 +32,7 @@ class Actions:
 
     def toggle_enabled(self):
         self.enabled = not self.enabled
+        self.kms = False
         print("done")
 
     async def try_learn_spell(self, min_wait_time):

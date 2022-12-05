@@ -95,10 +95,12 @@ class Actions:
         self.block_mouse = True
         await self.hd.mouse_click()
         await asyncio.sleep(0.15)
+        await self.hd.press_key("f" + str(self.target))
         await self.hd.move_mouse(self.screen_center)
         await asyncio.sleep(0.15)
         await self.hd.press_and_release_key("w")
         await asyncio.sleep(0.15)
+        await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
 
     async def killmys(self):

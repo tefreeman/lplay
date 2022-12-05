@@ -13,6 +13,7 @@ keyboard_keys = {
     "shift+w": "w",
     "shift+e": "e",
     "shift+r": "r",
+    "shift+b": "b",
     "f13": ">",  # click
     "f14": "<",  # attk clickW
     "`": "enable",

@@ -43,6 +43,9 @@ class Actions:
         self.block_mouse = True
         mouse.move(self.screen_center[0], self.screen_center[1])
         time.sleep(0.05)
+        mouse.move(self.screen_center[0], self.screen_center[1])
+        keyboard.press_and_release(key)
+        time.sleep(0.05)
         keyboard.press_and_release(key)
         self.block_mouse = False
 

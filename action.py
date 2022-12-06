@@ -5,6 +5,7 @@ import keyboard
 import asyncio
 from ainput import AInput
 import mouse
+import random
 
 
 class Actions:
@@ -112,18 +113,21 @@ class Actions:
 
         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
             await self.hd.press_and_release_key("w")
+            await asyncio.sleep(0.15)
 
-        await self.hd.move_mouse(self.screen_center)
-        await asyncio.sleep(0.05)
-        await self.hd.mouse_click()
-        await asyncio.sleep(0.75)
-        await self.hd.press_and_release_key("e")
-        await self.hd.move_mouse(self.gs.enemy_base_loc)
-        await asyncio.sleep(0.05)
-        await self.hd.mouse_click(button="right")
-        await asyncio.sleep(0.75)
-        await self.hd.press_and_release_key("r")
-        await self.hd.press_and_release_key("q")
+        start_time = time.time()
+        while time.time() - start_time < 30 or self.gs.player.is_dead == True:
+            target = (self.screen_center[0] + random.randint(-200, 200),
+                      self.screen_center[1] + random.randint(-200, 200))
+            sleep_time = random.random() + random.random() + 0.5
+            await self.hd.move_mouse(self.screen_center)
+            await self.hd.press_and_release_key("e")
+            await asyncio.sleep(0.05)
+            await self.hd.mouse_click()
+            await asyncio.sleep(sleep_time)
+            await self.hd.move_mouse(target)
+            await asyncio.sleep(0.05)
+            await self.hd.mouse_click(button="right")
         self.block_mouse = False
 
     async def buyItems(self):

@@ -116,7 +116,7 @@ class Actions:
             await asyncio.sleep(0.15)
 
         start_time = time.time()
-        while time.time() - start_time < 30 or self.gs.player.is_dead == True:
+        while time.time() - start_time < 30 and self.gs.player.is_dead == False and self.kms == True:
             target = (self.screen_center[0] + random.randint(-200, 200),
                       self.screen_center[1] + random.randint(-200, 200))
             sleep_time = random.random() + random.random() + 0.5
@@ -157,6 +157,7 @@ class Actions:
         while True:
             if self.kms == True:
                 await self.killmys()
+                self.kms = False
             elif self.do_quick_attack == True:
                 await self.quick_attack()
                 self.do_quick_attack = False

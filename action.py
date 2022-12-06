@@ -157,7 +157,7 @@ class Actions:
         while True:
             if self.kms == True:
                 await self.killmys()
-            if self.do_quick_attack == True:
+            elif self.do_quick_attack == True:
                 await self.quick_attack()
                 self.do_quick_attack = False
             elif self.enabled == True:

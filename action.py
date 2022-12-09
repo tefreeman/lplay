@@ -82,7 +82,7 @@ class Actions:
                 self.gs.champs[self.target-1].is_dead == False and\
                 self.gs.champs[self.target-1].hp_percent < 0.20:
             self.prev["summoner_heal"] = time.time()
-            await self.hd.press_and_release_key("e")
+            await self.hd.press_and_release_key("d")
 
     async def auto_heal(self, min_hp_percent):
         if self.gs.player.can_cast_heal is False:

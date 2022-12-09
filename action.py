@@ -79,7 +79,7 @@ class Actions:
         min_wait_time = 240
         if time.time() - self.prev["summoner_heal"] < 240:
             return
-        if (self.gs.player.attached == 1 or self.gs.player.attached == 2) and\
+        if self.gs.player.is_attached() and\
                 self.gs.player.is_dead == False and\
                 self.gs.champs[self.target-1].is_dead == False and\
                 self.gs.champs[self.target-1].hp_percent < 0.20:
@@ -90,7 +90,7 @@ class Actions:
         if self.gs.player.can_cast_heal is False:
             return
 
-        if (self.gs.player.attached == 1 or self.gs.player.attached == 2) and\
+        if self.gs.player.is_attached() and\
                 self.gs.player.is_dead == False and\
                 self.gs.champs[self.target-1].is_dead == False and\
                 self.gs.champs[self.target-1].hp_percent < min_hp_percent:
@@ -125,7 +125,7 @@ class Actions:
         self.block_mouse = True
         print("killmys")
 
-        if self.gs.player.attached == 1 or self.gs.player.attached == 2:
+        if self.gs.player.is_attached():
             await self.hd.press_and_release_key("w")
             await asyncio.sleep(0.15)
 
@@ -178,7 +178,7 @@ class Actions:
             elif self.enabled == True:
                 if self.gs.player.is_dead == False:
                     if self.gs.champs[self.target-1].is_dead == False:
-                        if self.gs.player.attached == 1 or self.gs.player.attached == 2:
+                        if self.gs.player.is_attached() is True:
                             await self.auto_heal(0.90)
                         else:
                             await self.goto_attach()

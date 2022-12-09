@@ -115,11 +115,30 @@ class Player:
         self.mana = 0.0
         self.is_dead = False
         self.can_learn = False
-        self.attached = False
+        self._attached = []
+
         self.can_cast_heal = False
 
+    def _append_attached(self, num):
+        if len(self._attached) > 6:
+            self._attached.pop(0)
+
+        self._attached.append(num)
+
+    def is_attached(self):
+        true_count = 0
+        false_count = 0
+
+        for i in self._attached:
+            if i == 1 or i == 2:
+                true_count += 1
+            else:
+                false_count += 1
+
+        return true_count > false_count
+
     def debug_print(self):
-        print(self.hp, self.mana, self.is_dead, self.attached)
+        print(self.hp, self.mana, self.is_dead, self._attached)
 
     def update(self, arr: np.array):
         self.update_is_dead(arr)
@@ -190,10 +209,8 @@ class Player:
         unattached_color = (65, 35, 151)
 
         if color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], unattached_color) < 16:
-            self.attached = 0
-
+            self._append_attached(0)
         elif color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], attached_color) < 16:
-            self.attached = 1
-
+            self._append_attached(1)
         else:
-            self.attached = 2
+            self._append_attached(2)

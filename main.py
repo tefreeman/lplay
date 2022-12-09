@@ -22,7 +22,7 @@ async def main():
 
     sc.update_screen()
     keys_server = asyncio.create_task(start_server(act))
-    screen_task_loop = asyncio.create_task(sc.update_loop(5))
+    screen_task_loop = asyncio.create_task(sc.update_loop(8))
 
     await gs.wait_game_start()
 

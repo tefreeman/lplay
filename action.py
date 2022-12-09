@@ -73,7 +73,7 @@ class Actions:
         await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
 
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(1.5)
 
     async def auto_summoner_heal(self):
         min_wait_time = 240

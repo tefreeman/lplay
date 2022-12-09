@@ -21,7 +21,8 @@ class Actions:
         self.hd: AInput = hd
         self.prev = {
             "learn_spell": 0,
-            "auto_heal": 0
+            "auto_heal": 0,
+            "summoner_heal": 0,
         }
 
     def toggle_quick_attack(self):
@@ -72,17 +73,28 @@ class Actions:
         await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
 
-    async def auto_heal(self, min_wait_time):
-        if time.time() - self.prev["auto_heal"] < min_wait_time:
+    async def auto_summoner_heal(self):
+        min_wait_time = 240
+        if time.time() - self.prev["summoner_heal"] < 240:
             return
         if (self.gs.player.attached == 1 or self.gs.player.attached == 2) and\
                 self.gs.player.is_dead == False and\
                 self.gs.champs[self.target-1].is_dead == False and\
-                self.gs.champs[self.target-1].hp_percent < 0.92:
-            self.prev["auto_heal"] = time.time()
+                self.gs.champs[self.target-1].hp_percent < 0.20:
+            self.prev["summoner_heal"] = time.time()
             await self.hd.press_and_release_key("e")
+
+    async def auto_heal(self, min_hp_percent):
+        if self.gs.player.can_cast_heal is False:
+            return
+
+        if (self.gs.player.attached == 1 or self.gs.player.attached == 2) and\
+                self.gs.player.is_dead == False and\
+                self.gs.champs[self.target-1].is_dead == False and\
+                self.gs.champs[self.target-1].hp_percent < min_hp_percent:
+            await self.hd.press_and_release_key("e")
+
         elif self.gs.player.hp < 0.5 and self.gs.player.is_dead == False:
-            self.prev["auto_heal"] = time.time()
             await self.hd.press_and_release_key("e")
 
     async def retreat(self):
@@ -165,7 +177,7 @@ class Actions:
                 if self.gs.player.is_dead == False:
                     if self.gs.champs[self.target-1].is_dead == False:
                         if self.gs.player.attached == 1 or self.gs.player.attached == 2:
-                            await self.auto_heal(2)
+                            await self.auto_heal(0.90)
                         else:
                             await self.goto_attach()
                             asyncio.sleep(2.0)
@@ -177,7 +189,7 @@ class Actions:
                     # await self.buyItems()
                     asyncio.sleep(3.0)
             else:
-                print("not enabled")
-
+                await self.auto_heal(0.35)
+                await self.auto_summoner_heal()
             await self.try_learn_spell(30)
             await asyncio.sleep(wait_time)

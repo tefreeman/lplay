@@ -14,8 +14,8 @@ keyboard_keys = {
     "shift+e": "e",
     "shift+r": "r",
     "shift+b": "b",
-    "f13": ">",  # click
-    "f14": "<",  # attk clickW
+    "f13": "<",  # click
+    "f14": ">",  # attk clickW
     "`": "enable",
     "f7": "kms",
     "shift+d": "d",

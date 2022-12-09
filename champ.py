@@ -116,16 +116,17 @@ class Player:
         self.is_dead = False
         self.can_learn = False
         self.attached = False
+        self.can_cast_heal = False
 
     def debug_print(self):
         print(self.hp, self.mana, self.is_dead, self.attached)
 
     def update(self, arr: np.array):
         self.update_is_dead(arr)
+        self.update_can_cast_heal(arr)
 
         if self.is_dead:
             return
-
         self.update_hp(arr)
         self.update_mana(arr)
         self.update_can_learn(arr)
@@ -172,6 +173,15 @@ class Player:
                 return
 
         self.can_learn = False
+
+    def update_can_cast_heal(self, np_array):
+        icon_heal_spell_pt = (900, 1000)
+        color = (69, 224, 38)
+
+        if color_diff(np_array[icon_heal_spell_pt[1], icon_heal_spell_pt[0]], color < 10):
+            self.can_cast_heal = True
+        else:
+            self.can_cast_heal = False
 
     def yuumi_is_attached(self, np_array):
         icon_spell_pt = (859, 1001)

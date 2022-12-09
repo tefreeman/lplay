@@ -27,7 +27,7 @@ async def main():
     await gs.wait_game_start()
 
     gs_task_loop = asyncio.create_task(gs.update_loop())
-    action_loop = asyncio.create_task(act.play_loop(10))
+    action_loop = asyncio.create_task(act.play_loop(8))
 
     await screen_task_loop
     await gs_task_loop

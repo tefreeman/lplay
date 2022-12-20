@@ -149,7 +149,7 @@ class Player:
         self.update_hp(arr)
         self.update_mana(arr)
         self.update_can_learn(arr)
-        self.yuumi_is_attached(arr)
+        self.update_yuumi_attatched(arr)
 
     def update_is_dead(self, np_array):
         count = 0
@@ -202,15 +202,15 @@ class Player:
         else:
             self.can_cast_heal = False
 
-    def yuumi_is_attached(self, np_array):
+    def update_yuumi_attatched(self, np_array):
         icon_spell_pt = (859, 1001)
 
         attached_color = (56, 79, 127)
         unattached_color = (65, 35, 151)
 
         if color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], unattached_color) < 16:
-            self._append_attached(0)
+            self._attached.append(0)
         elif color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], attached_color) < 16:
-            self._append_attached(1)
+            self._attached.append(1)
         else:
-            self._append_attached(2)
+            self._attached.append(2)

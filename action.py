@@ -191,7 +191,8 @@ class Actions:
                     # await self.buyItems()
                     asyncio.sleep(3.0)
             else:
-                await self.auto_heal(0.35)
+                await self.auto_heal(0.30)
                 await self.auto_summoner_heal()
+
             await self.try_learn_spell(30)
             await asyncio.sleep(wait_time)

@@ -182,7 +182,7 @@ class Actions:
                             await self.auto_heal(0.90)
                         else:
                             await self.goto_attach()
-                            asyncio.sleep(2.0)
+                            await asyncio.sleep(2.0)
 
                     else:
                         await self.retreat()

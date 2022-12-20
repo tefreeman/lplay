@@ -125,6 +125,8 @@ class Player:
 
         self._attached.append(num)
 
+        print(self._attached)
+
     def is_attached(self):
         true_count = 0
         false_count = 0
@@ -209,8 +211,8 @@ class Player:
         unattached_color = (65, 35, 151)
 
         if color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], unattached_color) < 16:
-            self._attached.append(0)
+            self._append_attached(0)
         elif color_diff(np_array[icon_spell_pt[1], icon_spell_pt[0]], attached_color) < 16:
-            self._attached.append(1)
+            self._append_attached(1)
         else:
-            self._attached.append(2)
+            self._append_attached(2)

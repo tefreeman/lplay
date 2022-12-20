@@ -72,17 +72,16 @@ class Actions:
         await asyncio.sleep(0.35)
         await self.hd.release_key("f" + str(self.target))
         self.block_mouse = False
-
         await asyncio.sleep(1.5)
 
-    async def auto_summoner_heal(self):
+    async def auto_summoner_heal(self, min_hp_percent):
         min_wait_time = 240
         if time.time() - self.prev["summoner_heal"] < 240:
             return
         if self.gs.player.is_attached() and\
                 self.gs.player.is_dead == False and\
                 self.gs.champs[self.target-1].is_dead == False and\
-                self.gs.champs[self.target-1].hp_percent < 0.20:
+                self.gs.champs[self.target-1].hp_percent < min_hp_percent:
             self.prev["summoner_heal"] = time.time()
             await self.hd.press_and_release_key("d")
 
@@ -182,7 +181,7 @@ class Actions:
                             await self.auto_heal(0.90)
                         else:
                             await self.goto_attach()
-                            await asyncio.sleep(2.0)
+                            await asyncio.sleep(1.5)
 
                     else:
                         await self.retreat()
@@ -192,7 +191,7 @@ class Actions:
                     asyncio.sleep(3.0)
             else:
                 await self.auto_heal(0.30)
-                await self.auto_summoner_heal()
+                await self.auto_summoner_heal(0.15)
 
             await self.try_learn_spell(30)
             await asyncio.sleep(wait_time)

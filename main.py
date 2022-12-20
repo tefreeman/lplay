@@ -16,7 +16,7 @@ async def main():
     hd = AInput(loop)
     sc = ScreenCapture()
     gs = GameState(sc)
-    act = Actions(gs, hd, ["r", "e", "w", "q"])
+    act = Actions(gs, hd, ["r", "w", "e", "q"])
 
     await asyncio.sleep(3)
 

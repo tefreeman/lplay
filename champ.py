@@ -125,8 +125,6 @@ class Player:
 
         self._attached.append(num)
 
-        print(self._attached)
-
     def is_attached(self):
         true_count = 0
         false_count = 0

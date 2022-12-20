@@ -199,7 +199,7 @@ class Player:
         icon_heal_spell_pt = (900, 1000)
         color = (69, 224, 38)
 
-        if color_diff(np_array[icon_heal_spell_pt[1], icon_heal_spell_pt[0]], color < 10):
+        if color_diff(np_array[icon_heal_spell_pt[1], icon_heal_spell_pt[0]], color) < 10:
             self.can_cast_heal = True
         else:
             self.can_cast_heal = False

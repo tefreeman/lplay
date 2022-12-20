@@ -27,12 +27,13 @@ async def main():
     await gs.wait_game_start()
 
     gs_task_loop = asyncio.create_task(gs.update_loop())
-    action_loop = asyncio.create_task(act.play_loop(8))
+    action_loop = asyncio.create_task(act.play_loop(15))
 
     await screen_task_loop
     await gs_task_loop
     await action_loop
     await keys_server
+
 if __name__ == "__main__":
     #logger.add("spam.log", level="DEBUG")
     asyncio.run(main())
